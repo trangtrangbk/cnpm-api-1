@@ -5,8 +5,8 @@ const {
 const { insertUserInfo } = require("../../services/userInforService");
 const {
   BadRequest,
-  InternalServerError
-} = require("../../utils/ResponseHelper");
+  InternalServerError 
+} = require("../../utils/ResponseHelper"); 
 const { getHashString, getRandomString } = require("../../utils/HashHelper");
 
 const EXISTED_ACCOUNT = "This account existed";
@@ -19,7 +19,7 @@ const register = async (req, res) => {
     if (account) return BadRequest(res, EXISTED_ACCOUNT);
     const accountData = hashPasswordOfAccount(bodyData);
     const savingAccountResult = await insertAccount(accountData);
-    console.log(bodyData.displayName)
+    console.log(bodyData.displayName)  
     const userInfoData = {
       id_account: savingAccountResult._id,
       displayName: bodyData.displayName || savingAccountResult.username
