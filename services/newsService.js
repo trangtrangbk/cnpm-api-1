@@ -2,7 +2,7 @@ const News = require("../models/news");
 const NEWS_STATUS = require("../utils/constant").NEWS_STATUS;
 
 
-const getNewsByStatus = async (status) => {
+const getNewsByStatus = async (status, page = 1, pageSize = 5) => {
     let query;
     switch (status) {
       case NEWS_STATUS.AVAILABLE:
@@ -18,7 +18,7 @@ const getNewsByStatus = async (status) => {
         query = News.find();
     }
   
-    return await query;
+    return await getPageNews(query, page, pageSize);
   };
 
 
@@ -30,6 +30,25 @@ const getNewsByStatus = async (status) => {
     const news = new News(newsData);
     return await news.save();
   };
+
+
+  const getPageNews = async (query, page, pageSize) => {
+    page = page > 0 ? page : 1;
+    const totalPage = await getTotalPage(pageSize, query);
+    const data = await query
+      .sort({ _id: -1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    return { page, pageSize, totalPage, data };
+  };
+
+  const getTotalPage = async (pageSize, query) => {
+    const count = await News.countDocuments(query);
+    return Math.ceil(count / pageSize);
+  };
+  
+  
+
 
   module.exports = {
     
