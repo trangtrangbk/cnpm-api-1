@@ -6,19 +6,19 @@ const {
   InternalServerError,
   Unauthorized
 } = require("../../utils/ResponseHelper");
-const { getAccountByUsername } = require("../../services/accountService");
+const { getAccountByEmail } = require("../../services/accountService");
 
 const DefNoRememberTime = config.DEF_EXP_SHORT;
 const DefRememberTime = config.DEF_EXP_LONG;
-const WrongAccountMsg = "Wrong username or password";
+const WrongAccountMsg = "Wrong email or password";
 const LockedUser = "you are blocked, please contact admin for more detail!";
 
 const login = async (req, res) => {
-  let { username, password, remember } = req.body;
-  if (!username || !password) return BadRequest(res);
-  username = username.trim().toLowerCase();
+  let { email, password, remember,  } = req.body;
+  if (!email || !password) return BadRequest(res);
+ // username = username.trim().toLowerCase();
   try {
-    const account = await getAccountByUsername(username);
+    const account = await getAccountByEmail(email);
     if (account && isMatchPassword(account, password)) {
       if(!account.status) return Unauthorized(res, LockedUser);
       responseUserSession(res, account, remember);

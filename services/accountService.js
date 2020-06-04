@@ -7,8 +7,8 @@ const insertAccount = async account => {
   return result;
 };
 
-const getAccountByUsername = async username => {
-  return await Account.findOne({ username });
+const getAccountByEmail= async email => {
+  return await Account.findOne({ email });
 };
 
 const getAccountById = async id => {
@@ -71,7 +71,7 @@ const countTotalAccount =async ()=>{
 
 module.exports = {
   insertAccount,
-  getAccountByUsername,
+  getAccountByEmail,
   getUserRoleById,
   ManageAccountById,
   getAccountById,
