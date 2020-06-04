@@ -33,12 +33,13 @@ const getNewsByStatus = async (status, page = 1, pageSize = 5) => {
 
 
   const getPageNews = async (query, page, pageSize) => {
+  
     page = page > 0 ? page : 1;
     const totalPage = await getTotalPage(pageSize, query);
     const data = await query
       .sort({ _id: -1 })
-      .skip((page - 1) * pageSize)
-      .limit(pageSize);
+      .limit(pageSize)
+      .skip((page - 1) * pageSize);
     return { page, pageSize, totalPage, data };
   };
 

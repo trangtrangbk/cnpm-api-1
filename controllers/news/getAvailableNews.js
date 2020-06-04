@@ -6,6 +6,7 @@ const {
 const { NEWS_STATUS } = require("../../utils/constant");
 
 const get = async (req, res) => {
+  let { page, pageSize } = req.query;
   page = parseInt(page) || 1;
   pageSize = parseInt(pageSize) || 5;
   try {
