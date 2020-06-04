@@ -6,11 +6,9 @@ const userInfoSchema = new Schema({
   displayName: String,
   birthday: Date,
   address: String,
-  identityCard: String,
   gender:Boolean,
   avatar:String,
   phoneNumber:String,
-  favourite:{type:Array},
   createdDay: { type: Date, default: Date.now }
 });
 

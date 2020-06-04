@@ -10,6 +10,9 @@ const insertAccount = async account => {
 const getAccountByEmail= async email => {
   return await Account.findOne({ email });
 };
+const getAccountByUserName = async username => {
+  return await Account.findOne({ username });
+};
 
 const getAccountById = async id => {
   return await Account.findById(id);
@@ -72,6 +75,7 @@ const countTotalAccount =async ()=>{
 module.exports = {
   insertAccount,
   getAccountByEmail,
+  getAccountByUserName,
   getUserRoleById,
   ManageAccountById,
   getAccountById,
